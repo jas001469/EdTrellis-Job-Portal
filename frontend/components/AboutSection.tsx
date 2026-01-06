@@ -15,7 +15,7 @@ export default function AboutPage() {
       <div className="mx-auto max-w-7xl px-6">
 
         {/* HEADER */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-semibold text-black mb-4">
             How It Works
           </h2>
@@ -24,88 +24,91 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* JOB SEEKERS */}
-        <div className="bg-white rounded-[2.5rem] px-10 py-16 mb-20">
-          <h3 className="text-center text-xl font-semibold mb-2">
-            For Job Seekers
-          </h3>
+        {/* BOTH SECTIONS SIDE BY SIDE */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
-          <div className="flex justify-center mb-10">
-            <span className="px-4 py-1 rounded-full bg-red-100 text-red-700 text-sm font-medium">
-              Easy Process
-            </span>
+          {/* JOB SEEKERS */}
+          <div className="bg-white rounded-[2.5rem] px-10 py-12 shadow-sm">
+            <h3 className="text-center text-xl font-semibold mb-2">
+              For Job Seekers
+            </h3>
+
+            <div className="flex justify-center mb-10">
+              <span className="px-4 py-1 rounded-full bg-red-100 text-red-700 text-sm font-medium">
+                Easy Process
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-10 text-center">
+              <Feature
+                icon={<UserPlus className="h-6 w-6" />}
+                title="Create Your Profile"
+                desc="Sign up and build your profile with skills, experience and availability."
+               
+              />
+              <Feature
+                icon={<Search className="h-6 w-6" />}
+                title="Discover Jobs"
+                desc="Search and filter opportunities that match your skills and preferences."
+               
+              />
+              <Feature
+                icon={<CheckCircle className="h-6 w-6" />}
+                title="Apply Quickly"
+                desc="Submit applications with just a few clicks, no lengthy forms."
+                
+              />
+              <Feature
+                icon={<Briefcase className="h-6 w-6" />}
+                title="Start Working"
+                desc="Get hired and begin earning with essential service roles."
+                
+              />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 text-center">
-            <Feature
-              icon={<UserPlus className="h-6 w-6" />}
-              title="Create Your Profile"
-              desc="Sign up and build your profile with skills, experience and availability."
-              step="1"
-            />
-            <Feature
-              icon={<Search className="h-6 w-6" />}
-              title="Discover Jobs"
-              desc="Search and filter opportunities that match your skills and preferences."
-              step="2"
-            />
-            <Feature
-              icon={<CheckCircle className="h-6 w-6" />}
-              title="Apply Quickly"
-              desc="Submit applications with just a few clicks, no lengthy forms."
-              step="3"
-            />
-            <Feature
-              icon={<Briefcase className="h-6 w-6" />}
-              title="Start Working"
-              desc="Get hired and begin earning with essential service roles."
-              step="4"
-            />
+          {/* EMPLOYERS */}
+          <div className="bg-white rounded-[2.5rem] px-10 py-12 shadow-sm">
+            <h3 className="text-center text-xl font-semibold mb-2">
+              For Employers
+            </h3>
+
+            <div className="flex justify-center mb-10">
+              <span className="px-4 py-1 rounded-full bg-red-100 text-red-700 text-sm font-medium">
+                Hiring Made Simple
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-10 text-center">
+              <Feature
+                icon={<Building2 className="h-6 w-6" />}
+                title="Register Company"
+                desc="Create your employer account with company details and requirements."
+              />
+              <Feature
+                icon={<FileText className="h-6 w-6" />}
+                title="Post Job Openings"
+                desc="Create detailed job listings with clear requirements and benefits."
+              />
+              <Feature
+                icon={<Eye className="h-6 w-6" />}
+                title="Review Candidates"
+                desc="Browse profiles, review applications and connect easily."
+              />
+              <Feature
+                icon={<Users className="h-6 w-6" />}
+                title="Hire Quality Workers"
+                desc="Select qualified candidates and build your workforce."
+              />
+            </div>
           </div>
+
         </div>
-
-        {/* EMPLOYERS */}
-        <div className="bg-white rounded-[2.5rem] px-10 py-16">
-          <h3 className="text-center text-xl font-semibold mb-2">
-            For Employers
-          </h3>
-
-          <div className="flex justify-center mb-10">
-            <span className="px-4 py-1 rounded-full bg-red-100 text-red-700 text-sm font-medium">
-              Hiring Made Simple
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 text-center">
-            <Feature
-              icon={<Building2 className="h-6 w-6" />}
-              title="Register Company"
-              desc="Create your employer account with company details and requirements."
-            />
-            <Feature
-              icon={<FileText className="h-6 w-6" />}
-              title="Post Job Openings"
-              desc="Create detailed job listings with clear requirements and benefits."
-            />
-            <Feature
-              icon={<Eye className="h-6 w-6" />}
-              title="Review Candidates"
-              desc="Browse profiles, review applications and connect easily."
-            />
-            <Feature
-              icon={<Users className="h-6 w-6" />}
-              title="Hire Quality Workers"
-              desc="Select qualified candidates and build your workforce."
-            />
-          </div>
-        </div>
-
       </div>
     </section>
   );
 }
 
-/* FEATURE CARD */
 function Feature({
   icon,
   title,
@@ -124,14 +127,13 @@ function Feature({
       </div>
 
       <h4 className="font-semibold mb-2">{title}</h4>
+
       <p className="text-sm text-gray-600 mb-4 max-w-xs">
         {desc}
       </p>
 
       {step && (
-        <span className="text-4xl font-bold text-red-200">
-          {step}
-        </span>
+        <span className="text-4xl font-bold text-red-200">{step}</span>
       )}
     </div>
   );

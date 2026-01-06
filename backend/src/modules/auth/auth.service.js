@@ -1,8 +1,8 @@
-import User from "../../models/User.model.js";
-import { hashPassword, comparePassword } from "../../utils/hash.js";
-import { generateToken } from "../../utils/jwt.js";
+const User = require("../../models/User.model.js");
+const { hashPassword, comparePassword } = require("../../utils/hash.js");
+const { generateToken } = require("../../utils/jwt.js");
 
-export const registerUser = async ({ name, email, password, role }) => {
+exports.registerUser = async ({ name, email, password, role }) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     throw new Error("Email already registered");
@@ -17,12 +17,12 @@ export const registerUser = async ({ name, email, password, role }) => {
     role,
   });
 
-  const token = generateToken({ id: user._id, role: user.role });
+  const token = generateToken(user._id);
 
   return { user, token };
 };
 
-export const loginUser = async ({ email, password, role }) => {
+exports.loginUser = async ({ email, password, role }) => {
   const user = await User.findOne({ email });
 
   // ❌ email not found
@@ -41,10 +41,7 @@ export const loginUser = async ({ email, password, role }) => {
     throw new Error("Invalid credentials");
   }
 
-  const token = generateToken({
-    id: user._id,
-    role: user.role,
-  });
+  const token = generateToken(user._id);
 
   return { user, token };
 };

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function RegisterPage() {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
     role: "CANDIDATE",
   });
 
@@ -30,10 +32,20 @@ export default function RegisterPage() {
     setLoading(true);
     setError("");
 
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const res = await api.post("/auth/register", form);
-      localStorage.setItem("token", res.data.data.token);
+      // Send registration data (without confirmPassword)
+      const { confirmPassword, ...registerData } = form;
+      const res = await api.post("/auth/register", registerData);
+      
+      // Success - cookies are automatically set by backend
       router.push("/");
+      router.refresh(); // IMPORTANT: This triggers navbar to update
     } catch (err: any) {
       setError(err.response?.data?.message || "Registration failed");
     } finally {
@@ -43,13 +55,12 @@ export default function RegisterPage() {
 
   return (
     <div className="max-w-md w-full bg-white rounded-3xl shadow-xl px-8 py-10">
-
       {/* HEADER */}
       <h2 className="text-2xl font-bold mb-2 text-black">
         Create Account
       </h2>
       <p className="text-gray-500 mb-6">
-        Fill in your details to get started
+        Sign up to get started
       </p>
 
       {/* ROLE TOGGLE */}
@@ -82,7 +93,7 @@ export default function RegisterPage() {
       {/* EMPLOYER INFO */}
       {form.role === "EMPLOYER" && (
         <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          Employer accounts allow you to post jobs and manage candidates.
+          Register as employer to post jobs and manage candidates.
         </div>
       )}
 
@@ -96,6 +107,7 @@ export default function RegisterPage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="name"
+          type="text"
           placeholder="Full Name"
           onChange={handleChange}
           className="w-full border border-gray-300 focus:border-red-700 focus:ring-1 focus:ring-red-700 px-4 py-3 rounded-xl outline-none"
@@ -120,24 +132,33 @@ export default function RegisterPage() {
           required
         />
 
+        <input
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+          onChange={handleChange}
+          className="w-full border border-gray-300 focus:border-red-700 focus:ring-1 focus:ring-red-700 px-4 py-3 rounded-xl outline-none"
+          required
+        />
+
         <button
           type="submit"
           disabled={loading}
           className="w-full bg-red-700 text-white py-3 rounded-full font-medium hover:bg-red-800 transition"
         >
-          {loading ? "Creating account..." : "Create Account"}
+          {loading ? "Creating Account..." : "Sign Up"}
         </button>
       </form>
 
       {/* FOOTER */}
       <p className="text-sm text-gray-500 text-center mt-6">
         Already have an account?{" "}
-        <a
+        <Link
           href="/auth/login"
           className="text-red-700 font-medium hover:underline"
         >
           Sign in
-        </a>
+        </Link>
       </p>
     </div>
   );

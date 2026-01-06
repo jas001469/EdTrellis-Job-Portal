@@ -1,12 +1,13 @@
 import Hero from "@/components/Hero";
-import AboutSection from "@/components/AboutSection"; // optional preview
+import AboutSection from "@/components/AboutSection";
+import JobsSection from "@/components/JobSection"; // Add this import
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      {/* Optional: preview of how it works */}
       <AboutSection />
+      <JobsSection /> {/* Add this line */}
     </>
   );
 }

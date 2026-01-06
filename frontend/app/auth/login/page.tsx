@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,9 +31,12 @@ export default function LoginPage() {
     setError("");
 
     try {
+      // REMOVE localStorage.setItem - we're using cookies now
       const res = await api.post("/auth/login", form);
-      localStorage.setItem("token", res.data.data.token);
+      
+      // Success - cookies are automatically set by backend
       router.push("/");
+      router.refresh(); // IMPORTANT: This triggers navbar to update
     } catch (err: any) {
       setError(err.response?.data?.message || "Invalid credentials");
     } finally {
@@ -122,13 +126,13 @@ export default function LoginPage() {
 
       {/* FOOTER */}
       <p className="text-sm text-gray-500 text-center mt-6">
-        Don’t have an account?{" "}
-        <a
+        Don't have an account?{" "}
+        <Link
           href="/auth/register"
           className="text-red-700 font-medium hover:underline"
         >
           Create one
-        </a>
+        </Link>
       </p>
     </div>
   );
