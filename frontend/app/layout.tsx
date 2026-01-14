@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { SearchProvider } from "@/context/SearchContext";
 
 export const metadata = {
   title: "Job Portal",
@@ -15,8 +16,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        
-        {children}
+        <SearchProvider>
+          {children}
+        </SearchProvider>
       </body>
     </html>
   );
