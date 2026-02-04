@@ -18,7 +18,7 @@ export const api = {
     return response.json();
   },
   
-  get: async (url: string) => {
+  get: async (url: string, p0: { withCredentials: boolean; }) => {
     const response = await fetch(`${API_BASE_URL}${url}`, {
       method: 'GET',
       credentials: 'include', // ADD THIS - sends/receives cookies

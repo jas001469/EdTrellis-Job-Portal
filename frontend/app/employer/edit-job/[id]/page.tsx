@@ -187,7 +187,7 @@ export default function EditJobPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-24 pb-12 flex justify-center items-center">
+      <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 pt-24 pb-12 flex justify-center items-center">
         <div className="text-center">
           <div className="relative">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-red-100 border-t-red-700 mx-auto"></div>
